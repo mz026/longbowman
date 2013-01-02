@@ -1,0 +1,38 @@
+require.config({
+  baseUrl: "<%= name %>/javascripts/"
+  , paths: {
+    jquery: "vendor/jquery/jquery.min"
+    , ember: "vendor/ember/ember"
+    , handlebars: "vendor/handlebars/handlebars-1.0.0-rc.1"
+    , text: "vendor/requirejs-text/text"
+  }
+  , shim: {
+    ember: {
+      deps: [ 'handlebars' ]
+      , exports: 'Ember'
+    }
+  }
+});
+
+
+define([
+    'jquery'
+    , 'ember'
+    , 'router'
+
+  ]
+  , function($, Ember, AppRouter
+  ){
+
+  <% capitalize_name = name.capitalize %>
+  var <%= capitalize_name%> = Ember.Application.create({
+    Router: AppRouter
+    , ApplicationView: Ember.View.extend({
+      template: Handlebars.compile("{{outlet}}")
+    })
+    , ApplicationController: Ember.Controller
+    , rootElement: "#root"
+  });
+
+  window.<%= capitalize_name%> = <%= capitalize_name%>;
+});

@@ -1,0 +1,44 @@
+define(['ember'], function(Ember){
+  <% capitalize_name = name.capitalize %>
+  var <%= capitalize_name %>Router = Ember.Router.extend({
+    // uncomment the following to use history api
+    // location: 'history'
+
+    root: Ember.Route.extend({
+      //TODO name a better one!
+      defaultRouteName: Ember.Route.extend({
+        route: '/'
+        , connectOutlets: function(router, context){
+          //TODO routing callback here
+          console.log('over write routing callback here!!');
+        }
+        , moveToBooks: Ember.Route.transitionTo('books.booksIndex')
+      })
+                        
+      //  uncomment followin to add a nested route
+      // , artistsRoute: Ember.Route.extend({
+      //   route: '/artists'
+      //   , connectOutlets: function(router, context){
+      //     router.get('applicationController').connectOutlet('artists');
+      //     router.get('artistsController').fetch();
+      //   }
+      //   , artistsIndex: Ember.Route.extend({
+      //     route: '/'
+      //     , connectOutlets: function(router, context){
+      //       router.get('artistsController').connectOutlet('feeds');
+      //     }
+      //   })
+      //   , feedsRoute: Ember.Route.extend({
+      //     route: '/:artist_id'
+      //     , connectOutlets: function(router, context){
+      //       router.get('feedsController').set('artist_id', context.artist_id);
+      //       router.get('artistsController').connectOutlet('feeds');
+      //     }
+      //   })
+      // })
+
+    })
+  });
+
+  return <%= capitalize_name %>Router;
+});
