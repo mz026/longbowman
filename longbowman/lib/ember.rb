@@ -1,4 +1,4 @@
-module Webapp
+module Longbowman
   class Ember < Thor
     include Thor::Actions
     argument :name
