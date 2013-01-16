@@ -1,4 +1,11 @@
 
+0\.0.3 / 2013-01-16 
+==================
+
+  * add ember controller and view generator
+  * add README
+  * rename module to Longbowman
+
 0\.0.2 / 2013-01-03 
 ==================
 
