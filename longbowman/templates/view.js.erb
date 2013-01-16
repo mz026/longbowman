@@ -1,0 +1,9 @@
+define(['ember', 'text!templates/<%= config[:snake_name]%>_template.html']
+  , function(Ember, <%= config[:uncapitalized_camel_name]%>Template){
+
+  var <%= config[:camel_name]%>View = Ember.View.extend({
+    template: Ember.Handlebars.compile(<%= config[:uncapitalized_camel_name]%>Template)
+  });
+
+  return <%= config[:camel_name] %>View;
+});

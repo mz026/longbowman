@@ -7,7 +7,7 @@ module Longbowman
       File.join(File.dirname(__FILE__), '..')
     end
 
-    desc "app NAME", "create app"
+    desc "app", "create app"
     def app
       ensure_bower_exists
       create_bowerrc
@@ -16,6 +16,34 @@ module Longbowman
       create_gitignore
       create_test_files
       setup_testem
+    end
+
+    desc "controller (in your javascripts folder)", "create ember controller"
+    def controller
+      camel_name = Thor::Util.camel_case(name)
+      template "templates/controller.js.erb", "controllers/#{name}_controller.js",
+        { :camel_name => camel_name, :snake_name => name }
+    end
+
+    desc "view (in your javascripts folder)", "create ember view and template"
+    def view
+      camel_name = Thor::Util.camel_case(name)
+      uncapitalized_camel_name = uncalpitalize(camel_name)
+
+      template "templates/html_template.html.erb", "templates/#{name}_template.html",
+        :snake_name => name
+
+      template "templates/view.js.erb", "views/#{name}_view.js",
+        :camel_name => camel_name, 
+        :uncapitalized_camel_name => uncapitalized_camel_name,
+        :snake_name => name
+
+    end
+
+    no_tasks do
+      def uncalpitalize str
+        str[0].downcase + str[1..-1]
+      end
     end
 
     no_tasks do
