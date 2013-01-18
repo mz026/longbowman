@@ -75,18 +75,33 @@ module Longbowman
       end
 
       def create_test_files
-        return unless yes?("use mocha?", :blue)
+        case ask("which test do you want?", 
+          :limited_to => ["jasmine", "mocha", "none"])
+          when "mocha"
+            say "using mocha as test tool!", :blue
+            create_test_with "mocha"
+          when "jasmine"
+            say "using jasmine as test tool!", :blue
+            create_test_with "jasmine"
+          else
+            say "no test selected", :red and return
+          end
+      end
 
+      def create_test_with lib_name
         inside name do
-          run "bower install -s mocha chai sinon.js"
+          run "bower install -s #{lib_name} chai sinon.js"
         end
         testem = command_exists? "testem"
-        template "templates/spec_runner.html.erb", 
+
+        template "templates/spec/#{lib_name}/spec_runner.html.erb", 
           "#{name}/spec_runner.html",
           { :testem => testem }
-        template "templates/javascripts/spec_runner.js", 
+
+        template "templates/spec/#{lib_name}/spec_runner.js", 
           "#{name}/javascripts/spec_runner.js"
-        copy_file "templates/javascripts/spec/dummy.test.js",
+
+        copy_file "templates/spec/#{lib_name}/dummy.test.js",
           "#{name}/javascripts/spec/dummy.test.js"
       end
 
